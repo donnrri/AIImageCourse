@@ -23,11 +23,11 @@ cats = [] # list for categories
 rh_corner_sofa= './assets/sofas/right_hand_corner'
 mid_cent = './assets/sofas/mid_centuary'
 test = './assets/sofas/test'
-all_rh = './assets/sofas/all_rh_corner'
+
 
 # collections of difficult and easy images
-
-all_mid_cent = './assets/all_mid_cent'
+all_rh = './assets/sofas/all_rh_corner'
+all_mid_cent = './assets/sofas/all_mid_cent'
 name_encode = {'corner': 0, 'mid_cent': 0,}
 
 # Go through folder and get each image
@@ -58,7 +58,7 @@ def convert_webp_jpg(path):
 
 
 images_to_array(all_rh, 'corner')
-images.to_array(all_mid_cent, 'mid_cent')
+images_to_array(all_mid_cent, 'mid_cent')
 #images_to_array(mid_cent, 'mid_cent')
 #images_to_array(test, 'mid_cent')
 
@@ -74,26 +74,51 @@ categorical_cats = to_categorical(cats, num_classes = 2)
 # Which gives the range required.
 imgs = (np.array(imgs) - 127.5)/127.5
 
-
+# Sequential starts the network off
 model = Sequential()
+# Now add layers
+# add 32 layers
+# model.add(Conv2D(
+# how many filters (32), pick out setail from layer
+#kernal size (5,5), size of window
+# window padding (padding='same'),
+# activation function (activation='relu'), 
+# dimensionality of data (e.g 100px by 100px, input_shape=(100, 100, 3)
+# ))
 model.add(Conv2D(32, (5,5), padding='same', activation='relu', input_shape=(100, 100, 3)))
+# First layer created add max pooling, reduce data
 model.add(MaxPool2D(pool_size=(2,2)))
+# Then repeat layers etc ( add as amny as required)
 model.add(Conv2D(100, (5,5), padding='same', activation='relu'))
 model.add(MaxPool2D(pool_size=(2,2)))
 model.add(Conv2D(100, (5,5), padding='same', activation='relu'))
 model.add(MaxPool2D(pool_size=(2,2)))
+
+# At the end of the layers
+# Can the diference between the categories be clarly defined 
+# cat 1 = [1,0] and cat2 = [0,1]
+
+# Flatten the layers to reduce dimensionality
 model.add(Flatten())
 model.add(Dense(124))
+# run another activation function
 model.add(Activation('relu'))
+# Finally use Dense and number of classes = 2
 model.add(Dense(2))
+# returns a value of 0 or 1
 model.add(Activation('sigmoid'))
+# Print out summary
 model.summary()
+#The above constructs the archietecture to process data
+# split the traing and test sets (test data is 10% of dataset)
+# These are collections of pixel values for each image
+mid_cent_train, mid_cent_test, corner_train, corner_test = train_test_split(imgs, categorical_cats, test_size=0.1)
 
-mid_cent_train, mid_cent__test, corner_train, corner_test = train_test_split(imgs, categorical_cats, test_size=0.1)
-
+# Mnay opimizers available Adam has low memory requirement
 optimizer = Adam(lr=0.001)
+# kick off training
 model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['acc'])
-h = model.fit(mid_cent_train, corner_train, batch_size=10, epochs=20, validation_data=(mid_cent__test, corner_test))
+h = model.fit(mid_cent_train, corner_train, batch_size=10, epochs=20, validation_data=(mid_cent_test, corner_test))
 model.save('sofa_training_CNN-h5')
 
 plt.plot(h.history['acc'])
