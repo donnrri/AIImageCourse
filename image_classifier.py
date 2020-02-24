@@ -1,7 +1,7 @@
-from PIL import Image
+from PIL import Image # read in images
 import numpy as np 
-import  matplotlib.pyplot as plt
-from keras.utils import to_categorical
+import  matplotlib.pyplot as plt # basic plotting data
+from keras.utils import to_categorical # convert to categories 
 from keras.layers import Activation, Conv2D, Dense, Flatten, MaxPool2D
 from keras.models import Sequential, load_model
 import os
@@ -11,9 +11,15 @@ from keras.optimizers import Adam
 import cv2
 
 
-imgs = [] # images
-cats = [] # images
+imgs = [] # list for images
+cats = [] # list for categories
 
+# 1. Load images
+# 2. Convert to a data shape which can be used
+# (number of images, width, height, rgb values)
+# Convert to categories
+
+# Paths to files (local)
 rh_corner_sofa= './assets/sofas/right_hand_corner'
 mid_cent = './assets/sofas/mid_centuary'
 test = './assets/sofas/test'
