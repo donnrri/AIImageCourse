@@ -17,17 +17,18 @@ cats = [] # images
 rh_corner_sofa= './assets/sofas/right_hand_corner'
 mid_cent = './assets/sofas/mid_centuary'
 test = './assets/sofas/test'
-name_encode = {'corner': 0, 'mid_cent': 0}
+all_rh = './assets/sofas/all_rh_corner'
+name_encode = {'corner': 0, 'mid_cent': 0, 'all_rh':0}
 
 def images_to_array(folder, name):
     for image in os.listdir(folder):
         loaded_image = Image.open(os.path.join(folder, image))
         resized_image = Image.Image.resize(loaded_image, [100, 100])
         image_array = np.array(resized_image)
+        blurred_image = cv2.blur(image_array, (2, 2))
         imgs.append(image_array)
         cats.append(name_encode[name])
         # blur image to increase size of dataset
-        blurred_image = cv2.blur(image_array (2, 2))
         imgs.append(blurred_image)
         cats.append(name_encode[name])
 
@@ -41,8 +42,8 @@ def convert_webp_jpg(path):
     return Image.open(path).convert("RGB)")
 
 
-images_to_array(rh_corner_sofa, 'corner')
-images_to_array(mid_cent, 'mid_cent')
+images_to_array(all_rh, 'all_rh')
+#images_to_array(mid_cent, 'mid_cent')
 #images_to_array(test, 'mid_cent')
 
 categorical_cats = to_categorical(cats, num_classes = 2)
