@@ -1,6 +1,6 @@
 from PIL import Image # read in images
 import numpy as np 
-import  matplotlib.pyplot as plt # basic plotting data
+import matplotlib.pyplot as plt # basic plotting data
 from keras.utils import to_categorical # convert to categories 
 from keras.layers import Activation, Conv2D, Dense, Flatten, MaxPool2D
 from keras.models import Sequential, load_model
@@ -58,7 +58,16 @@ images_to_array(all_rh, 'corner')
 #images_to_array(mid_cent, 'mid_cent')
 #images_to_array(test, 'mid_cent')
 
+# set up categories , we have two 
+# so category a = [1,0] and category 2 = [0,1]
 categorical_cats = to_categorical(cats, num_classes = 2)
+# Once all images added - need to convert to np array 
+# and normalise it thats is all values between -1 and 1
+# To do that use minus and divide by 127.5 otherwise 
+# before normalisation values can be between 0 and 255
+# so value - 127.5 (max = 127.5, min= -127.7)  
+# # then /127.5 (max = 1, min=-1)
+# Which gives the range required.
 imgs = (np.array(imgs) - 127.5)/127.5
 
 
