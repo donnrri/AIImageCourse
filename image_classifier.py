@@ -37,6 +37,10 @@ def show_image(index):
     plt.show()
 
 
+def convert_webp_jpg(path):
+    return Image.open(path).convert("RGB)")
+
+
 images_to_array(rh_corner_sofa, 'corner')
 images_to_array(mid_cent, 'mid_cent')
 #images_to_array(test, 'mid_cent')
@@ -63,7 +67,7 @@ mid_cent_train, mid_cent__test, corner_train, corner_test = train_test_split(img
 
 optimizer = Adam(lr=0.001)
 model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['acc'])
-h = model.fit(mid_cent_train, corner_train, batch_size=10, epochs=200, validation_data=(mid_cent__test, corner_test))
+h = model.fit(mid_cent_train, corner_train, batch_size=10, epochs=20, validation_data=(mid_cent__test, corner_test))
 model.save('sofa_training_CNN-h5')
 
 plt.plot(h.history['acc'])
