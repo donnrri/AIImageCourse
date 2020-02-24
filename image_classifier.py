@@ -2,7 +2,7 @@ from PIL import Image # read in images
 import numpy as np 
 import matplotlib.pyplot as plt # basic plotting data
 from keras.utils import to_categorical # convert to categories 
-from keras.layers import Activation, Conv2D, Dense, Flatten, MaxPool2D
+from keras.layers import Activation, Conv2D, Dense, Flatten, MaxPool2D, BatchNormalization, Dropout
 from keras.models import Sequential, load_model
 import os
 import tensorflow as tf
@@ -91,6 +91,13 @@ model.add(MaxPool2D(pool_size=(2,2)))
 # Then repeat layers etc ( add as amny as required)
 model.add(Conv2D(100, (5,5), padding='same', activation='relu'))
 model.add(MaxPool2D(pool_size=(2,2)))
+# If overfitting a problem if accuary (acc) good 
+# but validation accuracy(val_acc) is much lower 
+# Use regularistaion techniques like batchNormalization / Dropout
+# See notes;
+# model.add(BatcNormaliztion()) 
+# model.add(Dropout(0.5))
+# Or reduce complexity of layers
 model.add(Conv2D(100, (5,5), padding='same', activation='relu'))
 model.add(MaxPool2D(pool_size=(2,2)))
 
