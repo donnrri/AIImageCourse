@@ -24,6 +24,9 @@ rh_corner_sofa= './assets/sofas/right_hand_corner'
 mid_cent = './assets/sofas/mid_centuary'
 test = './assets/sofas/test'
 all_rh = './assets/sofas/all_rh_corner'
+
+# collections of difficult and easy images
+
 all_mid_cent = './assets/all_mid_cent'
 name_encode = {'corner': 0, 'mid_cent': 0,}
 
@@ -55,6 +58,7 @@ def convert_webp_jpg(path):
 
 
 images_to_array(all_rh, 'corner')
+images.to_array(all_mid_cent, 'mid_cent')
 #images_to_array(mid_cent, 'mid_cent')
 #images_to_array(test, 'mid_cent')
 
@@ -66,7 +70,7 @@ categorical_cats = to_categorical(cats, num_classes = 2)
 # To do that use minus and divide by 127.5 otherwise 
 # before normalisation values can be between 0 and 255
 # so value - 127.5 (max = 127.5, min= -127.7)  
-# # then /127.5 (max = 1, min=-1)
+# # then /127.5 (max = 1, min=-0)
 # Which gives the range required.
 imgs = (np.array(imgs) - 127.5)/127.5
 
