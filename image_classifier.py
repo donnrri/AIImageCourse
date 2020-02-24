@@ -27,9 +27,10 @@ all_rh = './assets/sofas/all_rh_corner'
 name_encode = {'corner': 0, 'mid_cent': 0, 'all_rh':0}
 
 # Go through folder and get each image
-# resize image
+# resize image ( reduce the data to be analysed)
 # Put image in numpy array (so in correct format)
 # blur image and put blurred and 'normal' image in list
+# blurring increases the datset size.
 # put image label in category list
 def images_to_array(folder, name):
     for image in os.listdir(folder):
