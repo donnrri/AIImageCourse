@@ -24,7 +24,8 @@ rh_corner_sofa= './assets/sofas/right_hand_corner'
 mid_cent = './assets/sofas/mid_centuary'
 test = './assets/sofas/test'
 all_rh = './assets/sofas/all_rh_corner'
-name_encode = {'corner': 0, 'mid_cent': 0, 'all_rh':0}
+all_mid_cent = './assets/all_mid_cent'
+name_encode = {'corner': 0, 'mid_cent': 0,}
 
 # Go through folder and get each image
 # resize image ( reduce the data to be analysed)
@@ -40,7 +41,6 @@ def images_to_array(folder, name):
         blurred_image = cv2.blur(image_array, (2, 2))
         imgs.append(image_array)
         cats.append(name_encode[name])
-        # blur image to increase size of dataset
         imgs.append(blurred_image)
         cats.append(name_encode[name])
 
@@ -54,7 +54,7 @@ def convert_webp_jpg(path):
     return Image.open(path).convert("RGB)")
 
 
-images_to_array(all_rh, 'all_rh')
+images_to_array(all_rh, 'corner')
 #images_to_array(mid_cent, 'mid_cent')
 #images_to_array(test, 'mid_cent')
 
