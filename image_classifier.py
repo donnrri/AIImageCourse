@@ -26,6 +26,11 @@ test = './assets/sofas/test'
 all_rh = './assets/sofas/all_rh_corner'
 name_encode = {'corner': 0, 'mid_cent': 0, 'all_rh':0}
 
+# Go through folder and get each image
+# resize image
+# Put image in numpy array (so in correct format)
+# blur image and put blurred and 'normal' image in list
+# put image label in category list
 def images_to_array(folder, name):
     for image in os.listdir(folder):
         loaded_image = Image.open(os.path.join(folder, image))
