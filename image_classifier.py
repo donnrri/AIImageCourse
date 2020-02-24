@@ -27,7 +27,7 @@ def images_to_array(folder, name):
         imgs.append(image_array)
         cats.append(name_encode[name])
         # blur image to increase size of dataset
-        blurred_image = cv2.blur(image, 2)
+        blurred_image = cv2.blur(image_array (2, 2))
         imgs.append(blurred_image)
         cats.append(name_encode[name])
 
