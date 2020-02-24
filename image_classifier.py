@@ -119,8 +119,10 @@ optimizer = Adam(lr=0.001)
 # kick off training
 model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['acc'])
 h = model.fit(mid_cent_train, corner_train, batch_size=10, epochs=20, validation_data=(mid_cent_test, corner_test))
+# Save the model
 model.save('sofa_training_CNN-h5')
 
+# plot out each iteraction of training (epochs = 20)
 plt.plot(h.history['acc'])
 plt.plot(h.history['val_acc'])
 plt.title('CNN accuracy train / test')
